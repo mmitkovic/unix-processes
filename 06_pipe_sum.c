@@ -6,7 +6,7 @@
 /*   By: mmitkovi <mmitkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 17:41:03 by mmitkovi          #+#    #+#             */
-/*   Updated: 2025/09/05 18:01:50 by mmitkovi         ###   ########.fr       */
+/*   Updated: 2025/09/06 16:30:59 by mmitkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int main()
 	{
 		int sum_from_child;
 		close(fd[1]);
-		if (read(fd[0], &sum_from_child, sizeof(sum_from_child)))
+		if (read(fd[0], &sum_from_child, sizeof(int)) == -1)
 			return 1;
 		close(fd[0]);
 
