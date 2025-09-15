@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   08_exec.c                                          :+:      :+:    :+:   */
+/*   09_exec_exit_status.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmitkovi <mmitkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 13:59:12 by mmitkovi          #+#    #+#             */
-/*   Updated: 2025/09/15 14:16:59 by mmitkovi         ###   ########.fr       */
+/*   Created: 2025/09/15 14:17:16 by mmitkovi          #+#    #+#             */
+/*   Updated: 2025/09/15 16:31:38 by mmitkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,27 @@
 int main()
 {
 	pid_t pid = fork();
-	
 	if (pid == -1)
 		return 1;
 
-	if (pid == 0) 
+	if (pid == 0)
 	{
-		execlp("ping", "ping", "-c", "3", "google.com", NULL);
-		// nothing get executed after exec functions
-		printf("THIS SHOULD NOT PRINT ON TERMINAL\n");
+		int err = execlp("ping", "ping", "-c", "1", "google.com", NULL);
+		if (err == -1)
+			printf("Program in not executed!\n");
 	}
 	else
 	{
+		int wstatus;
+		wait(&wstatus);
+		if (WEXITSTATUS(wstatus)) {
+			int status_code = WEXITSTATUS(wstatus);
+			printf("Exit code: %d\n", status_code);
+			if (status_code == 0)
+				printf("Success!\n");
+			else
+				printf("Fail!\n");
+		}
 		wait(NULL);
 		printf("---\n");
 		printf("Post process in parent process.\n");
