@@ -6,7 +6,7 @@
 /*   By: mmitkovi <mmitkovi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 18:08:25 by mmitkovi          #+#    #+#             */
-/*   Updated: 2025/09/09 16:18:36 by mmitkovi         ###   ########.fr       */
+/*   Updated: 2025/09/15 13:58:52 by mmitkovi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ int main()
 				end = arr_size;
 			int val = 0;
 			for (int i = start; i < end; i++) val += arr[i];
-			//child writes one int to the pipe
+			
 			close(fd[0]); // child doesn't read
-			if (write(fd[1], &val, sizeof(val)) != sizeof(val)) {
+			if (write(fd[1], &val, sizeof(val)) != sizeof(val)) { //child writes one int to the pipe
 				perror("write");
 			}
 			close(fd[1]);
